@@ -13,8 +13,6 @@ export function CinematicHero() {
   const t = useTranslations('Hero');
   const locale = useLocale();
   const { reduceMotion, videoPlayback, setVideoPlayback } = useMotionPreference();
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [isVideoError, setIsVideoError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -26,41 +24,19 @@ export function CinematicHero() {
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
 
-  // Handle Play/Pause based on preferences and viewport
+  // Handle Play/Pause based on preferences
   useEffect(() => {
-    if (!videoRef.current || isVideoError) return;
+    if (!videoRef.current) return;
 
     if (videoPlayback) {
       videoRef.current.play().catch(() => {
-        setIsVideoError(true);
+        // If autoplay fails, update state so the button shows "Play"
+        setVideoPlayback(false);
       });
     } else {
       videoRef.current.pause();
     }
-  }, [videoPlayback, isVideoError]);
-
-  // Pause when out of viewport
-  useEffect(() => {
-    if (!videoRef.current || isVideoError || !videoPlayback) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            videoRef.current?.play().catch(() => setIsVideoError(true));
-          } else {
-            videoRef.current?.pause();
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(videoRef.current);
-    return () => {
-      observer.disconnect();
-    };
-  }, [videoPlayback, isVideoError]);
+  }, [videoPlayback, setVideoPlayback]);
 
   const togglePlayback = () => {
     setVideoPlayback(!videoPlayback);
@@ -150,39 +126,19 @@ export function CinematicHero() {
       <div ref={containerRef} className="hidden md:flex relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-black items-center">
         {/* Background Media */}
         <div className="absolute inset-0 z-0">
-          {!isVideoError && (
-            <video
-              ref={videoRef}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              onLoadedData={() => setIsVideoLoaded(true)}
-              onError={() => setIsVideoError(true)}
-              style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
-              className={cn(
-                "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 object-[center_top]",
-                isVideoLoaded && videoPlayback ? "opacity-100" : "opacity-0"
-              )}
-              poster={assets.media.hero.posterDesktop}
-            >
-              <source src={assets.media.hero.desktopMp4} type="video/mp4" />
-            </video>
-          )}
-          
-          {/* Fallback Poster */}
-          <picture className={cn(
-            "absolute inset-0 w-full h-full",
-            (!isVideoError && isVideoLoaded && videoPlayback) ? "hidden" : "block"
-          )}>
-            <img 
-              src={assets.media.hero.posterDesktop} 
-              alt="La Rotunda" 
-              style={{ transform: locale === 'ar' ? 'scaleX(-1)' : 'none' }}
-              className="w-full h-full object-cover object-[center_top]"
-            />
-          </picture>
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
+            className="absolute inset-0 w-full h-full object-cover object-[center_top]"
+            poster={assets.media.hero.posterDesktop}
+          >
+            <source src={assets.media.hero.desktopMp4} type="video/mp4" />
+          </video>
           
           {/* Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-10" />
@@ -245,25 +201,23 @@ export function CinematicHero() {
         </motion.div>
 
         {/* Playback Control Button */}
-        {!isVideoError && (
-          <button
-            onClick={togglePlayback}
-            className="absolute bottom-8 right-8 z-30 px-4 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-md rounded-full text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 flex items-center gap-2 text-sm font-bold font-arabic"
-            aria-label={videoPlayback ? 'Pause background video' : 'Play background video'}
-          >
-            {videoPlayback ? (
-              <>
-                <Pause className="w-4 h-4" />
-                {locale === 'ar' ? 'إيقاف الفيديو' : 'Pause Video'}
-              </>
-            ) : (
-              <>
-                <Play className="w-4 h-4" />
-                {locale === 'ar' ? 'تشغيل الفيديو' : 'Play Video'}
-              </>
-            )}
-          </button>
-        )}
+        <button
+          onClick={togglePlayback}
+          className="absolute bottom-8 right-8 z-30 px-4 py-2 bg-black/50 hover:bg-black/80 backdrop-blur-md rounded-full text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 flex items-center gap-2 text-sm font-bold font-arabic"
+          aria-label={videoPlayback ? 'Pause background video' : 'Play background video'}
+        >
+          {videoPlayback ? (
+            <>
+              <Pause className="w-4 h-4" />
+              {locale === 'ar' ? 'إيقاف الفيديو' : 'Pause Video'}
+            </>
+          ) : (
+            <>
+              <Play className="w-4 h-4" />
+              {locale === 'ar' ? 'تشغيل الفيديو' : 'Play Video'}
+            </>
+          )}
+        </button>
       </div>
     </>
   );
