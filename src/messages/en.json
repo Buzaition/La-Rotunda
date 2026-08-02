@@ -1,0 +1,39 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "menu": "Menu",
+    "offers": "Offers",
+    "branches": "Branches",
+    "about": "Our Story",
+    "contact": "Contact",
+    "orderNow": "Order Now"
+  },
+  "Hero": {
+    "eyebrow": "Every crunch starts a story",
+    "heading": "Flavor that tells a story",
+    "subheading": "Crispy chicken, loaded sandwiches, and La Rotunda flavor made for every unforgettable bite.",
+    "primaryCTA": "Order from your branch",
+    "secondaryCTA": "Explore the menu"
+  },
+  "Actions": {
+    "viewMenu": "View Menu",
+    "callNow": "Call Now",
+    "chooseBranch": "Choose Branch",
+    "selectBranch": "Select a Branch",
+    "changeBranch": "Change",
+    "order": "Order"
+  },
+  "Common": {
+    "priceAvailable": "Price available from the branch",
+    "currency": "EGP",
+    "popular": "Popular",
+    "new": "New",
+    "spicy": "Spicy",
+    "offer": "Offer"
+  },
+  "Footer": {
+    "copyright": "© [YEAR] La Rotunda Fried Chicken & Burger. All rights reserved.",
+    "careers": "Careers",
+    "legal": "Legal & Privacy"
+  }
+}

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: var(--brand);
+  --color-brand-strong: var(--brand-strong);
+  --color-accent: var(--accent);
+  --color-crispy-gold: var(--crispy-gold);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-overlay: var(--overlay);
+  --color-focus: var(--focus);
+  
+  --font-arabic: var(--font-alexandria);
+  --font-english-display: var(--font-barlow-condensed);
+  --font-english-body: var(--font-inter);
+}
+
+@layer base {
+  :root {
+    --background: #F6F0E6;
+    --surface: #FFFDF8;
+    --surface-elevated: #FFFFFF;
+    --brand: #D51B22;
+    --brand-strong: #BE1018;
+    --brand-dark: #760B10;
+    --foreground: #101010;
+    --muted: #746B63;
+    --accent: #D51B22;
+    --crispy-gold: #F1AD24;
+    --border: rgba(16, 16, 16, 0.14);
+    --overlay: rgba(16, 16, 16, 0.4);
+    --focus: rgba(213, 27, 34, 0.5);
+  }
+
+  .dark {
+    --background: #080808;
+    --surface: #12100F;
+    --surface-elevated: #191514;
+    --brand: #DC1B23;
+    --brand-strong: #BE1018;
+    --brand-dark: #2A090B;
+    --foreground: #F8F0E4;
+    --muted: #B7ACA2;
+    --accent: #DC1B23;
+    --crispy-gold: #F2B12B;
+    --border: rgba(248, 240, 228, 0.14);
+    --overlay: rgba(0, 0, 0, 0.7);
+    --focus: rgba(220, 27, 35, 0.5);
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  
+  *:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}

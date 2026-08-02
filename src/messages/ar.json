@@ -1,0 +1,39 @@
+{
+  "Navigation": {
+    "home": "الرئيسية",
+    "menu": "المنيو",
+    "offers": "العروض",
+    "branches": "الفروع",
+    "about": "حكايتنا",
+    "contact": "تواصل معنا",
+    "orderNow": "اطلب الآن"
+  },
+  "Hero": {
+    "eyebrow": "من أول قرمشة… تبدأ الحكاية",
+    "heading": "طعم يحكي حكاية",
+    "subheading": "فرايد تشيكن مقرمش، ساندوتشات محملة، وخلطة لاروتندا اللي بتخلي كل لقمة ليها حكاية.",
+    "primaryCTA": "اطلب من أقرب فرع",
+    "secondaryCTA": "اكتشف المنيو"
+  },
+  "Actions": {
+    "viewMenu": "شوف المنيو",
+    "callNow": "اتصل الآن",
+    "chooseBranch": "اختار فرعك",
+    "selectBranch": "اختار فرع",
+    "changeBranch": "تغيير",
+    "order": "اطلب"
+  },
+  "Common": {
+    "priceAvailable": "السعر متاح من الفرع",
+    "currency": "ج.م",
+    "popular": "الأكثر طلباً",
+    "new": "جديد",
+    "spicy": "حار",
+    "offer": "عرض"
+  },
+  "Footer": {
+    "copyright": "© [YEAR] لاروتندا فرايد تشيكن وبرجر. جميع الحقوق محفوظة.",
+    "careers": "وظائف",
+    "legal": "الشروط والأحكام"
+  }
+}
