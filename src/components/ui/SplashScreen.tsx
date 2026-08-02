@@ -63,6 +63,8 @@ export function SplashScreen() {
               <img 
                 src={assets.brand.mascot} 
                 alt="La Rotunda" 
+                fetchPriority="high"
+                decoding="sync"
                 className="w-full h-full object-contain drop-shadow-2xl animate-pulse"
               />
             </div>

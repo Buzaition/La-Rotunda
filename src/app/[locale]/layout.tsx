@@ -65,6 +65,9 @@ export default async function LocaleLayout({
   
   return (
     <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'} suppressHydrationWarning>
+      <head>
+        <link rel="preload" href="/brand/logo-mascot.png" as="image" />
+      </head>
       <body className={`${alexandria.variable} ${inter.variable} ${barlowCondensed.variable} font-arabic bg-background text-foreground antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <AppProviders>
