@@ -67,6 +67,7 @@ export default async function LocaleLayout({
     <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
         <link rel="preload" href="/brand/logo-mascot.png" as="image" />
+        <link rel="preload" href="/media/hero/hero-desktop.mp4" as="video" type="video/mp4" media="(min-width: 768px)" fetchPriority="high" />
       </head>
       <body className={`${alexandria.variable} ${inter.variable} ${barlowCondensed.variable} font-arabic bg-background text-foreground antialiased`}>
         <NextIntlClientProvider messages={messages}>

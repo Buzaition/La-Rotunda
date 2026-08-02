@@ -139,6 +139,7 @@ export function CinematicHero() {
               loop
               muted
               playsInline
+              preload="auto"
               onLoadedData={() => setIsVideoLoaded(true)}
               onError={() => setIsVideoError(true)}
               style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
