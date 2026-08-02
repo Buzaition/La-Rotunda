@@ -43,7 +43,7 @@ export function MobileNav() {
     <>
       <button 
         onClick={() => setIsOpen(true)}
-        className="lg:hidden p-2 text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-focus relative z-50"
+        className="lg:hidden p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-focus relative z-50"
         aria-label="Open Menu"
       >
         <Menu className="w-6 h-6" />

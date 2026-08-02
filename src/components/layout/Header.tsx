@@ -31,22 +31,30 @@ export function Header() {
       <header
         className={cn(
           "transition-all duration-300 w-full",
-          isScrolled ? "bg-surface/90 backdrop-blur-md shadow-sm py-3 border-b border-border" : "bg-transparent py-5"
+          isScrolled 
+            ? "bg-surface/90 backdrop-blur-md shadow-sm py-3 border-b border-border text-foreground" 
+            : "bg-transparent py-5 text-white"
         )}
       >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-sm">
-          {/* Light Mode Logo */}
+          {/* Default Logo */}
           <img 
             src={assets.brand.horizontal} 
             alt="La Rotunda" 
-            className="h-9 w-auto object-contain dark:hidden"
+            className={cn(
+              "h-9 w-auto object-contain",
+              !isScrolled ? "hidden" : "dark:hidden"
+            )}
           />
-          {/* Light Logo for Dark Mode */}
+          {/* Light Logo */}
           <img 
             src={assets.brand.horizontalLight} 
             alt="La Rotunda" 
-            className="h-8 md:h-10 w-auto object-contain hidden dark:block"
+            className={cn(
+              "h-8 md:h-10 w-auto object-contain",
+              !isScrolled ? "block" : "hidden dark:block"
+            )}
           />
         </Link>
 
@@ -67,7 +75,7 @@ export function Header() {
           
           <Link 
             href="/cart"
-            className="relative p-2 text-foreground hover:text-brand transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-full"
+            className="relative p-2 hover:text-brand transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-full"
             aria-label="Cart"
           >
             <ShoppingBag className="w-6 h-6" />
