@@ -117,7 +117,7 @@ export function CinematicHero() {
             <img 
               src={assets.media.hero.posterMobile} 
               alt="La Rotunda" 
-              style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
+              style={{ transform: locale === 'ar' ? 'scaleX(-1)' : 'none' }}
               className="w-full h-full object-cover object-[50%_58%]"
             />
           </picture>
@@ -141,6 +141,7 @@ export function CinematicHero() {
               playsInline
               onLoadedData={() => setIsVideoLoaded(true)}
               onError={() => setIsVideoError(true)}
+              style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
               className={cn(
                 "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 object-[center_top]",
                 isVideoLoaded && videoPlayback ? "opacity-100" : "opacity-0"
@@ -159,7 +160,7 @@ export function CinematicHero() {
             <img 
               src={assets.media.hero.posterDesktop} 
               alt="La Rotunda" 
-              style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
+              style={{ transform: locale === 'ar' ? 'scaleX(-1)' : 'none' }}
               className="w-full h-full object-cover object-[center_top]"
             />
           </picture>
