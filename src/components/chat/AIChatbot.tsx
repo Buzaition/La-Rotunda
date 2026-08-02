@@ -8,6 +8,7 @@ import { categories } from '@/data/categories';
 import { useLocale } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { Send, X, Bot, ChefHat, CheckCircle2, ShoppingBag } from 'lucide-react';
+import { useCart } from '@/providers/CartProvider';
 
 interface ParsedMessage {
   displayContent: string;
@@ -30,7 +31,9 @@ export function AIChatbot() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  
+  const { cartItems, addToCart, updateQuantity, removeFromCart } = useCart();
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const apiKeys = [
@@ -107,29 +110,24 @@ Strict rules: Do not hallucinate menu items. Ensure JSON inside tags is perfectl
   };
 
   const confirmAddToCart = (newItems: CartItem[]) => {
-    setCartItems(prev => {
-      let updated = [...prev];
-      newItems.forEach(item => {
-        if (item.quantity < 0) {
-          // Remove/decrease quantity
-          const existingIdx = updated.findIndex(i => i.itemName === item.itemName && i.sizeName === item.sizeName);
-          if (existingIdx >= 0) {
-            updated[existingIdx].quantity += item.quantity;
-            if (updated[existingIdx].quantity <= 0) {
-              updated.splice(existingIdx, 1);
-            }
-          }
-        } else {
-          // Add/increase quantity
-          const existingIdx = updated.findIndex(i => i.itemName === item.itemName && i.sizeName === item.sizeName);
-          if (existingIdx >= 0) {
-            updated[existingIdx].quantity += item.quantity;
+    newItems.forEach(item => {
+      const id = `${item.itemName}-${item.sizeName || 'default'}`;
+      
+      if (item.quantity < 0) {
+        // Decrease quantity or remove
+        const existing = cartItems.find(i => i.id === id);
+        if (existing) {
+          const newQty = existing.quantity + item.quantity; // item.quantity is negative
+          if (newQty <= 0) {
+            removeFromCart(id);
           } else {
-            updated.push(item);
+            updateQuantity(id, newQty);
           }
         }
-      });
-      return updated;
+      } else {
+        // Add to cart
+        addToCart({ ...item, id });
+      }
     });
   };
 

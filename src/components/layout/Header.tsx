@@ -8,12 +8,14 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileNav } from '../navigation/MobileNav';
 import { AnnouncementBar } from '../home/AnnouncementBar';
 import { cn } from '@/lib/utils';
-import { Menu } from 'lucide-react';
+import { Menu, ShoppingBag } from 'lucide-react';
 import { assets } from '@/config/assets';
+import { useCart } from '@/providers/CartProvider';
 
 export function Header() {
   const t = useTranslations('Navigation');
   const [isScrolled, setIsScrolled] = useState(false);
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,6 +64,20 @@ export function Header() {
             <LanguageSwitcher />
             <ThemeSwitcher />
           </div>
+          
+          <Link 
+            href="/cart"
+            className="relative p-2 text-foreground hover:text-brand transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus rounded-full"
+            aria-label="Cart"
+          >
+            <ShoppingBag className="w-6 h-6" />
+            {totalItems > 0 && (
+              <span className="absolute top-0 right-0 w-5 h-5 bg-brand text-white text-[10px] font-bold rounded-full flex items-center justify-center transform translate-x-1 -translate-y-1">
+                {totalItems > 99 ? '99+' : totalItems}
+              </span>
+            )}
+          </Link>
+
           <Link 
             href="/menu"
             className="hidden md:inline-flex bg-brand hover:bg-brand-strong text-white px-6 py-2 rounded-sm font-arabic font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus"

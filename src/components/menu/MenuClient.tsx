@@ -4,9 +4,10 @@ import { useState, useMemo } from 'react';
 import { MenuItem } from '@/types/menu';
 import { useBranch } from '@/providers/BranchProvider';
 import { useTranslations } from 'next-intl';
-import { Search, SlidersHorizontal, Flame, Star, Sparkles } from 'lucide-react';
+import { Search, SlidersHorizontal, Flame, Star, Sparkles, ShoppingBag, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { BrandedPlaceholder } from '../ui/BrandedPlaceholder';
+import { useCart } from '@/providers/CartProvider';
 
 interface MenuClientProps {
   initialMenu: MenuItem[];
@@ -160,6 +161,12 @@ export function MenuClient({ initialMenu, categories, locale }: MenuClientProps)
 
 function ProductCard({ item, locale, selectedBranchId, common }: any) {
   const [imgError, setImgError] = useState(false);
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(
+    item.options && item.options.length > 0 ? item.options[0].id : null
+  );
+  const [isAdded, setIsAdded] = useState(false);
+  
+  const { addToCart } = useCart();
   
   // Find price for selected branch or default to null
   const branchPricing = selectedBranchId 
@@ -168,6 +175,29 @@ function ProductCard({ item, locale, selectedBranchId, common }: any) {
     
   const isAvailable = branchPricing.length > 0 && branchPricing.some((p: any) => p.available);
   
+  // Find specific price based on selected option
+  const currentPriceObj = selectedOptionId
+    ? branchPricing.find((p: any) => p.optionId === selectedOptionId)
+    : branchPricing[0];
+    
+  const currentPrice = currentPriceObj ? currentPriceObj.price : null;
+  const currentOption = selectedOptionId ? item.options?.find((o:any) => o.id === selectedOptionId) : null;
+
+  const handleAddToCart = () => {
+    if (!currentPrice) return;
+    
+    addToCart({
+      id: `${item.id}-${selectedOptionId || 'default'}`,
+      itemName: item.name[locale],
+      sizeName: currentOption ? currentOption.label[locale] : undefined,
+      price: currentPrice,
+      quantity: 1
+    });
+    
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000);
+  };
+
   return (
     <div className="bg-surface-elevated border border-border rounded-lg overflow-hidden flex flex-col group hover:border-brand/30 transition-colors">
       <div className="relative h-48 bg-black/5 p-4">
@@ -214,11 +244,55 @@ function ProductCard({ item, locale, selectedBranchId, common }: any) {
           {item.description[locale]}
         </p>
         
-        <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between">
-          <div className="font-english-display font-bold text-lg text-foreground">
-            {/* Display logic for price depending on options */}
-            <span className="text-brand-strong">{common('priceAvailable')}</span>
+        {item.options && item.options.length > 0 && (
+          <div className="mb-4">
+            <select
+              value={selectedOptionId || ''}
+              onChange={(e) => setSelectedOptionId(e.target.value)}
+              className="w-full bg-surface border border-border rounded-md px-3 py-2 text-sm font-arabic focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+            >
+              {item.options.map((opt: any) => (
+                <option key={opt.id} value={opt.id}>
+                  {opt.label[locale]}
+                </option>
+              ))}
+            </select>
           </div>
+        )}
+        
+        <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between gap-4">
+          <div className="font-english-display font-bold text-lg text-foreground">
+            {currentPrice ? (
+              <span className="text-brand-strong">{currentPrice} {common('currency')}</span>
+            ) : (
+              <span className="text-muted text-sm">{common('priceAvailable')}</span>
+            )}
+          </div>
+          
+          <button
+            disabled={!isAvailable || !currentPrice}
+            onClick={handleAddToCart}
+            className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-md font-arabic font-bold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-focus shadow-sm",
+              !isAvailable || !currentPrice 
+                ? "bg-surface-elevated text-muted cursor-not-allowed border border-border"
+                : isAdded 
+                  ? "bg-green-600 text-white hover:bg-green-700" 
+                  : "bg-brand text-white hover:bg-brand-strong shadow-brand/20"
+            )}
+          >
+            {isAdded ? (
+              <>
+                <Check className="w-4 h-4" />
+                {locale === 'ar' ? 'تمت الإضافة' : 'Added'}
+              </>
+            ) : (
+              <>
+                <ShoppingBag className="w-4 h-4" />
+                {locale === 'ar' ? 'أضف للسلة' : 'Add to cart'}
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>

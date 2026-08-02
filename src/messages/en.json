@@ -35,5 +35,24 @@
     "copyright": "© [YEAR] La Rotunda Fried Chicken & Burger. All rights reserved.",
     "careers": "Careers",
     "legal": "Legal & Privacy"
+  },
+  "Cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Looks like you haven't added anything to your cart yet.",
+    "startShopping": "Start Shopping",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Checkout via WhatsApp",
+    "addToCart": "Add to Cart",
+    "itemAdded": "Added to cart",
+    "remove": "Remove",
+    "checkoutForm": {
+      "title": "Delivery Details",
+      "name": "Full Name",
+      "phone": "Phone Number",
+      "address": "Delivery Address",
+      "notes": "Order Notes (Optional)"
+    }
   }
 }

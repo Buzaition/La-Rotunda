@@ -1,4 +1,5 @@
 export interface CartItem {
+  id: string; // unique identifier (e.g. menu item id + option id)
   itemName: string;
   sizeName?: string;
   price?: number;
