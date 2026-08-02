@@ -39,14 +39,14 @@ export const assets = {
       coleslaw: '/media/products/coleslaw.jpg',
     },
     ingredients: {
-      bottomBun: '/media/ingredients/bottom-bun.webp',
-      houseSauce: '/media/ingredients/house-sauce.webp',
-      lettuce: '/media/ingredients/lettuce.webp',
-      pickles: '/media/ingredients/pickles.webp',
-      cheese: '/media/ingredients/cheese.webp',
-      crispyFillet: '/media/ingredients/crispy-fillet.webp',
-      topBun: '/media/ingredients/top-bun.webp',
-      crumbs: '/media/ingredients/crumbs.webp',
+      bottomBun: '/media/ingredients/bottom-bun.jpg',
+      houseSauce: '/media/ingredients/house-sauce.jpg',
+      lettuce: '/media/ingredients/lettuce.jpg',
+      pickles: '/media/ingredients/pickles.jpg',
+      cheese: '/media/ingredients/cheese.jpg',
+      crispyFillet: '/media/ingredients/crispy-fillet.jpg',
+      topBun: '/media/ingredients/top-bun.jpg',
+      crumbs: '/media/ingredients/crumbs.jpg',
     }
   },
   textures: {

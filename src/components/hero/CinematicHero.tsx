@@ -112,7 +112,25 @@ export function CinematicHero() {
 
         {/* Media Region */}
         <div className="relative overflow-hidden min-h-0 before:absolute before:inset-0 before:z-10 before:pointer-events-none before:bg-[linear-gradient(to_bottom,#050505_0%,rgba(5,5,5,0.72)_12%,rgba(5,5,5,0.16)_34%,transparent_55%)]">
-          <picture className="absolute inset-0 w-full h-full">
+          {!isVideoError && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              style={{ transform: locale === 'en' ? 'scaleX(-1)' : 'none' }}
+              className="absolute inset-0 w-full h-full object-cover object-[50%_58%]"
+              poster={assets.media.hero.posterMobile}
+              onError={() => setIsVideoError(true)}
+            >
+              <source src={assets.media.hero.mobileMp4} type="video/mp4" />
+            </video>
+          )}
+          <picture className={cn(
+            "absolute inset-0 w-full h-full",
+            !isVideoError ? "hidden" : "block"
+          )}>
             <source media="(max-width: 767px)" srcSet={assets.media.hero.posterMobile} />
             <img 
               src={assets.media.hero.posterMobile} 
