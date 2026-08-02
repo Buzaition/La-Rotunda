@@ -87,8 +87,7 @@ export function CinematicHero() {
           </span>
           
           <h1 className="max-w-full m-0 text-[clamp(2.5rem,11.5vw,3.5rem)] leading-[1.02] tracking-[-0.035em] font-extrabold font-english-display w-full">
-            <span>{locale === 'ar' ? 'طعم يحكي' : 'FLAVOR THAT'}</span>
-            <span className="text-[#f6f0e6] ms-2">{locale === 'ar' ? 'حكاية' : 'TELLS A STORY'}</span>
+            <span>{t('heading')}</span>
           </h1>
           
           <p className="mt-[18px] max-w-[33rem] text-[clamp(0.96rem,4.15vw,1.08rem)] leading-[1.7] text-white/80 font-arabic mx-auto">
