@@ -36,8 +36,6 @@ export function SplashScreen() {
     };
   }, []);
 
-  if (!mounted) return null;
-
   return (
     <AnimatePresence>
       {isLoading && (
